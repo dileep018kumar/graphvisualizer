@@ -1,4 +1,4 @@
 digraph{
 node[shape=diamond]
-    a->{b,c}[arrowshape=lbox]
+    a->{b,c,d}
 }
