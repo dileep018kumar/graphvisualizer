@@ -1,0 +1,4 @@
+digraph{
+node[shape=diamond]
+    a->{b,c}[arrowshape=lbox]
+}
