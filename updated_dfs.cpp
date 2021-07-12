@@ -21,10 +21,7 @@ public:
     {
         return clr;
     }
-    void setclr()
-    {
-        clr = 1;
-    }
+
     void resetclr()
     {
         clr = 0;
@@ -32,22 +29,24 @@ public:
 };
 class graph : public node
 {
-    map<node, list<node>> l;
+    map<int, list<int>> l;
+    map<int, bool> clr;
+    map<int, bool> vis;
 
 public:
-    void addEdge(node x, node y)
+    void addEdge(int x, int y)
     {
         l[x].push_back(y);
         l[y].push_back(x);
     }
-    /* void print()
+    void print()
     {
-        map<node, list<node>>::iterator it1;
-        list<node>::iterator it2;
+        map<int, list<int>>::iterator it1;
+        list<int>::iterator it2;
         for (it1 = l.begin(); it1 != l.end(); it1++)
         {
             // cout << "hello in 1st loop";
-            cout << (it1->first).num << "->";
+            cout << it1->first << "->";
             for (it2 = it1->second.begin(); it2 != it1->second.end(); it2++)
             {
                 cout << *it2 << " ";
@@ -55,29 +54,44 @@ public:
             }
             cout << '\n';
         }
-    }*/
-    void bfs(int src, node *p)
+    }
+    void printclr(int v)
     {
-        map<int, bool> vis;
-        queue<int> q;
-        q.push(src);
-        vis[src] = 1;
-        while (!q.empty())
+        map<int, bool>::iterator it;
+        cout << "graph colour for bfs of node " << v << " is:";
+        for (it = clr.begin(); it != clr.end(); it++)
         {
-            int node = q.front();
-            q.pop();
-            // setClr(node);
-            //    cout << node << "color of node " << p[node].getclr() << "\n";
+            if (it->second)
+                cout << "1 ";
+            else
+                cout << "0 ";
+        }
+        cout << '\n';
+    }
+    void setclr(int vertices)
+    {
+        map<int, bool>::iterator it;
 
-            for (int nbr : l[node])
-            {
-                if (vis[nbr] == 0)
-                    cout << p[1].getnum() << " ";
-                {
-                    q.push(nbr);
-                    vis[nbr] = 1;
-                }
-            }
+        for (int i = 1; i <= vertices; i++)
+            clr[i] = 0;
+    }
+    void setNodeClr(int v)
+    {
+        clr[v] = 1;
+        printclr(v);
+        clr[v] = 0;
+    }
+    void dfs(int src)
+    {
+        vis[src] = 1;
+        cout << "visiting node is :" << src << '\n';
+        setNodeClr(src);
+        list<int>::iterator it;
+        for (it = l[src].begin(); it != l[src].end(); it++)
+        {
+
+            if (vis[*it] == 0)
+                dfs(*it);
         }
     }
 };
@@ -105,13 +119,11 @@ int32_t main()
         cin >> node1 >> node2;
         g.addEdge(node1, node2);
     }
-    // g.print();
+    g.setclr(vertices);
+    ll root;
+    cout<<"enter which node should be root to start dfs (values range from 1 to "<<vertices;
+    cin>>root;
+    g.dfs(root);
 
-    // for (ll i = 1; i <= vertices; i++)
-    // {
-    //     cout << " color of " << i << " is"
-    //          << "-" << arr[i]->getclr() << " ";
-    // }
-    g.bfs(1, arr[0]);
     return 0;
 }
