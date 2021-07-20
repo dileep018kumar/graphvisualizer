@@ -1,2 +1,2 @@
 # graphvisualizer
-takes a graphs and prints the graph
+takes a graph and prints the graph
