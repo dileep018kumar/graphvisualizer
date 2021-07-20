@@ -1,20 +1,30 @@
 #include <bits/stdc++.h>
 using namespace std;
 typedef long long int ll;
-template <typename T>
+
+struct displayParameters {
+  string shape, color, text;
+};
+
+// struct edgeParameters {
+//   string shape, color, text;
+// };
+
+template <typename messageType, typename stateType>
 class node
 {
   ll id;
   list<ll> neighbours;
-  list<T> inbox;
-  list<T> outbox;
-  vector<string> displayParameters;
+  list<messageType> inbox;
+  list<messageType> outbox;
+  displayParameters nodeParams;
+  list<displayParameters> edgeParams;
 
 public:
-  ll stateVariables;
-  ll messageType;
-  vector<string> code;
+  stateType state;
+  function<void()> code;
 };
+
 int main()
 {
   return 0;
