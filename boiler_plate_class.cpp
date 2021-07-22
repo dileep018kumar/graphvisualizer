@@ -22,10 +22,11 @@ class node
 
 public:
   stateType state;
-  function<void()> code;
+  function<void(node &n)> code;
 };
 
 int main()
 {
+  
   return 0;
 }

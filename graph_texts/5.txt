@@ -1,0 +1,34 @@
+6 5
+2
+color blue
+style filled
+2
+color red
+style filled
+2
+color red
+style filled
+2
+color red
+style filled
+2
+color red
+style filled
+2
+color red
+style filled
+2 1
+1
+label edge:1
+4 1
+1
+label edge:2
+3 2
+1
+label edge:3
+5 4
+1
+label edge:4
+6 4
+1
+label edge:5

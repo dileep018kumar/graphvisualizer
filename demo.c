@@ -19,17 +19,16 @@
  * as dot, neato, sfdp, etc. 
  */
 #include <graphviz/gvc.h>
-#include <stdio.h>
-#include <assert.h>
 
 char* to_string(int x) {
     assert(x > 0);
-    char c[100];
+    char c[1000];
     int i = 0;
     while (x > 0) {
-	c[i++] = '0'+(x%10);
-	x /= 10;
+	    c[i++] += '0'+(x%10);
+	    x /= 10;
     }
+    c[i] = '\0';
     return c;
 }
 
@@ -58,19 +57,47 @@ int main(int argc, char **argv)
     assert(n > 0 && n < N);
     assert(m > 0 && m < M);
     for (int i=1;i<=n;++i) {
-	int c; 
-	scanf("%d", &c);
-	//printf("%d color of %d read\n", c, i);
-	v[i] = agnode(g, to_string(i), 1);
-	agsafeset(v[i], "color", (c == 0 ? "red" : "blue"), "");
+	    int p; 
+	    scanf("%d", &p);
+	    //printf("%d color of %d read\n", c, i);
+
+        int x = i;
+
+        char str[1000];
+        int j = 0;
+        while (x > 0) {
+	        str[j++] = '0'+(x%10);
+	        x /= 10;
+        }
+        str[j] = '\0';
+
+	    v[i] = agnode(g, str, 1);
+	    // agsafeset(v[i], "color", (c == 0 ? "red" : "blue"), "");
+	    // agsafeset(v[i], "style", "filled", "");
+        for (int k=0;k<p;++k) {
+            char name[1000], value[1000];
+            scanf("%s %s", name, value);
+            agsafeset(v[i], name, value, "");
+        }
     }
     for (int i=0;i<m;++i) {
-	//printf("enter edge %d : ", i);
-	int a, b;
-	scanf("%d %d", &a, &b);
-	assert(a > 0 && a < N && b > 0 && b < N);
-	e[i] = agedge(g, v[a], v[b], 0, 1);
-	//printf("%d %d edge added", a, b);
+	    //printf("enter edge %d : ", i);
+	    int a, b;
+        char str[100];
+	    scanf("%d %d", &a, &b);
+        // scanf("%s", str);
+	    assert(a > 0 && a < N && b > 0 && b < N);
+        // fprintf(stderr, "%s read\n", str);
+	    e[i] = agedge(g, v[a], v[b], 0, 1);
+        int p;
+        scanf("%d", &p);
+        for (int k=0;k<p;++k) {
+            char name[1000], value[1000];
+            scanf("%s %s", name, value);
+            agsafeset(e[i], name, value, "");
+        }
+        // agsafeset(e[i], "label", "from 1 to 2", "");
+	    //printf("%d %d edge added", a, b);
     }
     
     //n = agnode(g, "n", 1);
