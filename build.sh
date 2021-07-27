@@ -9,7 +9,7 @@ for file in ./graph_texts/*
         echo $strip
         ./demo -Kdot < $file > graph1.dot
         dot -Tsvg < graph1.dot > ./images/"$strip".svg
-        inkscape -z -e ./png/"$strip".png -w 230 -h 1208 ./images/"$strip".svg
+        # inkscape -z -e ./png/"$strip".png -w 230 -h 1208 ./images/"$strip".svg
     done
 
 # rm -r ./graph_texts/*

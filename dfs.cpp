@@ -58,9 +58,16 @@ int main() {
     //     dfs(i);
     // }
     Graph<int, int> g;
-    int n = 10;
+    int n, m;
+    cin >> n >> m;
+
     for (int i=0;i<n;++i) g.addVertex(i);
-    for (int i=0;i<n;++i) g.addEdge(i, (i+1)%n);
+    for (int i=0;i<m;++i) {
+        int u, v;
+        cin >> u >> v;
+        g.addEdge(u, v);
+    }
+    // for (int i=0;i<n;++i) g.addEdge(i, (i+1)%n);
     // fstream f("./graph_texts/1.txt", ios::out);
     // f << g << '\n';
     g.code = [](Node<int, int> &node) {
