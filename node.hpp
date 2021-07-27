@@ -104,20 +104,7 @@ public:
 public:
   Graph() {
     V = E = snaps = 0;
-    code = [](Node<messageType, stateType> &node) {
-      for (auto &it : node.inBox) {
-        node.state = std::max(node.state, it.second);
-      }
-      node.inBox.clear();
-      node.state = std::max(node.state, node.id);
-      node.setNodeParam("color", "blue");
-      node.setNodeParam("label", "state=" + std::to_string(node.state) + ",id=" + std::to_string(node.id));
-      for (int j=0;j<node.neighbours.size();++j) {
-        node.send(node.state, j);
-        node.setEdgeParam(j, "label", std::to_string(node.state));
-        node.setEdgeParam(j, "color", "red");
-      }
-    };
+    code = [](Node<messageType, stateType> &node) {};
   }
   void addEdge(int u, int v) {
     edges.push_back({u, v});
