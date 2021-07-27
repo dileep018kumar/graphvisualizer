@@ -57,11 +57,12 @@ int main(int argc, char **argv)
     assert(n > 0 && n < N);
     assert(m > 0 && m < M);
     for (int i=1;i<=n;++i) {
-	    int p; 
-	    scanf("%d", &p);
+	    int x, p; 
+	    scanf("%d %d", &x, &p);
 	    //printf("%d color of %d read\n", c, i);
 
-        int x = i;
+        // int x ;
+        x++;
 
         char str[1000];
         int j = 0;
@@ -70,6 +71,11 @@ int main(int argc, char **argv)
 	        x /= 10;
         }
         str[j] = '\0';
+        for (int ii=0;ii<j-ii-1;++ii) {
+            char t = str[j];
+            str[j] = str[j-ii-1];
+            str[j-ii-1] = t;
+        }
 
 	    v[i] = agnode(g, str, 1);
 	    // agsafeset(v[i], "color", (c == 0 ? "red" : "blue"), "");
@@ -85,9 +91,10 @@ int main(int argc, char **argv)
 	    int a, b;
         char str[100];
 	    scanf("%d %d", &a, &b);
+        a++; b++;
         // scanf("%s", str);
 	    assert(a > 0 && a < N && b > 0 && b < N);
-        // fprintf(stderr, "%s read\n", str);
+        // fprintf(stderr, "%d %d read\n", a, b);
 	    e[i] = agedge(g, v[a], v[b], 0, 1);
         int p;
         scanf("%d", &p);

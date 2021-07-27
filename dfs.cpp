@@ -42,19 +42,40 @@ void dfs(int u) {
 }
 
 int main() {
-    cin >> n >> m;
-    for (int i=1;i<=n;++i) {
-        col[i] = 0;
-        vis[i] = 0;
-    }
-    for (int i=0;i<m;++i) {
-        int u, v;
-        cin >> u >> v;
-        g[u].push_back(v);
-        g[v].push_back(u);
-    }
-    img_no = 1;
-    for (int i=1;i<=n;++i) if (!vis[i]) {
-        dfs(i);
-    }
+    // cin >> n >> m;
+    // for (int i=1;i<=n;++i) {
+    //     col[i] = 0;
+    //     vis[i] = 0;
+    // }
+    // for (int i=0;i<m;++i) {
+    //     int u, v;
+    //     cin >> u >> v;
+    //     g[u].push_back(v);
+    //     g[v].push_back(u);
+    // }
+    // img_no = 1;
+    // for (int i=1;i<=n;++i) if (!vis[i]) {
+    //     dfs(i);
+    // }
+    Graph<int, int> g;
+    int n = 10;
+    for (int i=0;i<n;++i) g.addVertex(i);
+    for (int i=0;i<n;++i) g.addEdge(i, (i+1)%n);
+    // fstream f("./graph_texts/1.txt", ios::out);
+    // f << g << '\n';
+    g.code = [](Node<int, int> &node) {
+      for (auto &it : node.inBox) {
+        node.state = std::max(node.state, it.second);
+      }
+      node.inBox.clear();
+      node.state = std::max(node.state, node.id);
+      node.setNodeParam("color", "blue");
+      node.setNodeParam("label", "state=" + std::to_string(node.state) + ",id=" + std::to_string(node.id));
+      for (int j=0;j<node.neighbours.size();++j) {
+        node.send(node.state, j);
+        node.setEdgeParam(j, "label", std::to_string(node.state));
+        node.setEdgeParam(j, "color", "red");
+      }
+    };
+    g.simulate(3);
 }
